@@ -1,0 +1,35 @@
+Source: rtkernel
+Section: kernel
+Priority: extra
+Maintainer: Eric Keller <keller.eric@gmail.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.7
+Vcs-Git: git@github.com:erickeller/rt-kernel.git
+Vcs-Browser: https://github.com/erickeller/rt-kernel.git
+
+Package: linux-rt
+Architecture: i386 amd64
+Depends: linux-image-rt, linux-headers-rt, ${misc:Depends}
+Description: Complete Linux kernel (meta-package) for image and headers
+ This package depends on the latest Linux kernel for use on PCs
+ with AMD64 or Intel 64 processors.
+ .
+ This kernel includes the PREEMPT_RT realtime patch set.
+
+Package: linux-image-rt
+Architecture: i386 amd64
+Provides: linux-image
+Depends: __LINUXIMAGE__, ${misc:Depends}
+Description: Linux for 64-bit PCs (meta-package), PREEMPT_RT
+ This package depends on the latest Linux kernel for use on PCs
+ with AMD64 or Intel 64 processors.
+ .
+ This kernel includes the PREEMPT_RT realtime patch set.
+
+Package: linux-headers-rt
+Architecture: i386 amd64
+Provides: linux-headers
+Depends: __LINUXHEADERS__, ${misc:Depends}
+Description: Header files for Linux rt configuration (meta-package)
+ This package depends on the architecture-specific header files for the
+ latest Linux kernel rt configuration.

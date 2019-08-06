@@ -1,0 +1,12 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: rtkernel
+Source: github.com/erickeller/rt-kernel.git
+
+Files: *
+Copyright: (C) Copyright Eric Keller
+License: Apache2
+
+Files: debian/*
+Copyright: (C) Copyright Eric Keller
+License: Apache2
+
