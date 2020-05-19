@@ -107,7 +107,8 @@ install_dependencies()
                                                                                         kernel-package \
                                                                                         cpio \
                                                                                         debhelper \
-                                                                                        dput"
+                                                                                        dput \
+                                                                                        liblz4-tool"
 }
 
 import_kernel_signature_key()
