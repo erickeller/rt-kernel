@@ -211,8 +211,15 @@ apply_patches()
 
 get_lowlatency_config()
 {
+set -x
     LOW_LATENCY_HEADER_DEB=$(curl -L --insecure ${UBUNTU_KERNEL_URL}/v${VANILA_KERNEL_VERSION}/ | grep ".*headers.*lowlatency.*amd64" | sed -e 's#.*href="\(.*.deb\)".*#\1#g' | head -n1)
-    download ${UBUNTU_KERNEL_URL}/v${VANILA_KERNEL_VERSION} ${LOW_LATENCY_HEADER_DEB}
+    if [ -z ${LOW_LATENCY_HEADER_DEB} ]
+    then
+        LOW_LATENCY_HEADER_DEB=$(curl -L --insecure ${UBUNTU_KERNEL_URL}/v${RT_KERNEL_VERSION_DIR}/ | grep ".*headers.*lowlatency.*amd64" | sed -e 's#.*href="\(.*.deb\)".*#\1#g' | head -n1)
+        download ${UBUNTU_KERNEL_URL}/v${RT_KERNEL_VERSION_DIR} ${LOW_LATENCY_HEADER_DEB}
+    else
+        download ${UBUNTU_KERNEL_URL}/v${VANILA_KERNEL_VERSION} ${LOW_LATENCY_HEADER_DEB}
+    fi
 
     # extract debian package data content
     ar xv ${LOW_LATENCY_HEADER_DEB}
@@ -226,9 +233,9 @@ build_kernel()
     cd linux-${VANILA_KERNEL_VERSION}
     # inject RT configuration
     ./scripts/kconfig/merge_config.sh .config ../rt-config-fragment
-    if ! grep -q "CONFIG_PREEMPT_RT_FULL=y" .config
+    if ! grep -q "CONFIG_PREEMPT_RT=y" .config
     then
-        echo "No RT FULL PREEMPT configuration applied to .config... Aborting..."
+        echo "No RT PREEMPT configuration applied to .config... Aborting..."
         exit 1
     fi
     make oldconfig
@@ -285,7 +292,7 @@ install_dependencies
 # Vanila kernel signature
 import_kernel_signature_key 6092693E
 # OSADL signature
-import_kernel_signature_key 514B0EDE3C387F944FB3799329E574109AEBFAAA
+import_kernel_signature_key 647F28654894E3BD457199BE38DBBDC86092693E
 get_files
 get_ubuntu_patches
 extract_files
