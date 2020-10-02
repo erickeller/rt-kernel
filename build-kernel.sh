@@ -223,7 +223,7 @@ set -x
     fi
 
     # extract debian package data content
-    ar xv ${LOW_LATENCY_HEADER_DEB}
+    ar xv $(basename ${LOW_LATENCY_HEADER_DEB})
     tar xaf data.tar.xz
     cp $(find  usr/src/ -name .config | head -n1) lowlatency.config
     cp -f lowlatency.config linux-${VANILA_KERNEL_VERSION}/.config
