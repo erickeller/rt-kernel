@@ -250,7 +250,7 @@ build_kernel()
 create_meta_package()
 {
     # create meta package ${PREFIX}rtkernel
-    LINUXIMAGE=$(ls linux-image-${VANILA_KERNEL_VERSION}-rt${RT_KERNEL_PATCH_VERSION}-*.deb | sed -e "s/${CODENAME}.*deb/${CODENAME}/")
+    LINUXIMAGE=$(ls linux-image-${VANILA_KERNEL_VERSION}-rt${RT_KERNEL_PATCH_VERSION}-${CODENAME}_${REVISION}*.deb | sed -e "s/${CODENAME}.*deb/${CODENAME}/")
     LINUXHEADERS=$(ls linux-headers-${VANILA_KERNEL_VERSION}-rt${RT_KERNEL_PATCH_VERSION}-*.deb | sed -e "s/${CODENAME}.*deb/${CODENAME}/")
     rm -rf ${PREFIX}rtkernel
     cp -rf ${PREFIX}rtkernel.template ${PREFIX}rtkernel
